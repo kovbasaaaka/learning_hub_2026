@@ -1,4 +1,4 @@
-<img width="577" height="395" alt="image" src="https://github.com/user-attachments/assets/74c28f0a-d94f-43e8-b2cb-4c68d349ec90" /># Основы - Конспект
+# Основы - Конспект
 
 ## Конспект по теме: "Ввод - вывод данных, команды print() и input(), переменные"
 
