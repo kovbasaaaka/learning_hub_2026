@@ -1,4 +1,4 @@
-<img width="54" height="30" alt="image" src="https://github.com/user-attachments/assets/6eff1f34-97fb-4887-96f5-abefe3398477" /><img width="54" height="30" alt="image" src="https://github.com/user-attachments/assets/0705248e-631d-4fa5-bf3d-b5ea8f6e8807" />## Конспект по теме "Ревью кода"
+## Конспект по теме "Ревью кода"
 
 ### Основные понятия
 
