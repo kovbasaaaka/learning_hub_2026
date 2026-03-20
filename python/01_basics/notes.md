@@ -1847,3 +1847,154 @@
   ```
 Для **пустой строки** метод **`isspace()`** также возвращает **`False`**, т.к.  в этом случае строка **не состоит из пробельных символов**.
 
+
+## Конспект по теме: "Форматирование строк"
+
+
+### Основные понятия:
+
+Хранить строки в переменных удобно, но часто бывает необходимо собирать строки из других объектов(строк, чисел и т.д.), после чего выполнять уже с ними нужные манипуляции.
+
+Для этой цели можно воспользоваться механизмом **форматирования строк**.
+
+#### Метод format()
+
+- Рассмотрим следующий код:
+  ```python
+  birth_year = 2007
+  text = 'My name is Trofim, I was born in ' + birth_year
+
+  print(text)
+  ```
+Такой код приводит к ошибке во время выполнения программы, поскольку мы пытаемся сложить **число** и **строку**. Из-за чего последует ошибка - **`TypeError: can only concatenate str (not "int") to str`**
+
+Для решения такой проблемы можно использовать **функцию `str()`**, которая **преобразует числовое значение в строку**.
+
+- Приведённый ниже код:
+  ```python
+  birth_year = 2007
+  text = 'My name is Trofim, I was born in ' + str(birth_year)
+
+  print(text)
+  ```
+  выводит:
+  ```python
+  My name is Trofim, I was born in 2007
+  ```
+
+Такой код работает, но каждый раз преобразовывать число в строку абсолютно неудобно.
+
+Для более наглядного **форматирования** можно использовать **строковый метод `format()`**.
+
+- Предыдущий код можно преобразовать в вид:
+  ```python
+  birth_year = 2007
+  text = 'My name is Trofim I was born in {}'.format(birth_year)
+
+  print(text)
+  ```
+Здесь необходимые нам параметры передаются методу **`format()`**, а **Python ставит их вместо фигурных скобок `{}`** - **заполнителей**. 
+
+Можно создавать сколько душе угодно **заполнителей**. Т.е. неограниченное количество.
+
+- Приведённый ниже код:
+  ```python
+  birth_year = 2007
+  name = 'Trofim'
+  profession = 'trainee programmer'
+  text = 'My name is {}, I was born in {}, I work as a {}.'.format(name, birth_year, profession)
+
+  print(text)
+  ```
+  выводит:
+  ```python
+  My name is Trofim, I was born in 2007, I work as a trainee programmer.
+  ```
+Для более хорошей наглядности и гибкости можно использовать **порядковый номер внутри заполнителя**: **`{0}`, `{1}`, `{2}`** И Т.Д. 
+
+Такой **номер определяет позицию параметра, переданного методу `format()`**(нумерация начинается с нуля).
+
+- Например:
+  ```python
+  birth_year = 2007
+  name = 'Trofim'
+  profession = 'trainee programmer'
+  text = 'My name is {0}, I was born in {1}, I work as a {3}'.format(name, birth_year, profession)
+
+  print(text)
+  ```
+Параметр **`name`** встает в **заполнителе `{0}`**, параметр **`birth_year`** - встаёт в **заполнителе `{1}`** и так далее по нумерации. 
+
+Можно использовать **одно и то же число** в **нескольких заполнителях** или не использовать совсем, а также можно использовать числа в **разном порядке**.
+
+- Приведённый ниже код:
+  ```python
+  name = 'Trofim'
+  city = 'Yekaterinburg'
+  text1 = 'My name is {0}-{0}-{0}!'.format(name, city)
+  text2 = '{1} is my city and {0} is my name!'.format(name, city)
+
+  print(text1, text2 sep='\n')
+  ```
+  выводит:
+  ```python
+  My name is Trofim-Trofim-Trofim!
+  Yekaterinburg is my city and Trofim is my name!
+  ```
+
+#### f-строки
+
+Метод **`format()`** хорошо справляется с задачей форматирования строк, когда параметров не слишком много. Когда параметров становится много, код с таким методом может показаться немного избыточным.
+
+- Приведённый ниже код:
+  ```python
+  first_name = 'Taylor'
+  second_name = 'Swift'
+  country = 'USA'
+  birth_date = '1989/12/13'
+  birth_place = 'West Reading, Pennsylvania'
+  text = '{0} {1} is a very famous singer from the {2}. She was born on {3} in {4}.'.format(first_name,          second_name, country, birth_date, birth_place)
+
+  print(text)
+  ```
+  выводит:
+  ```python
+  Taylor Swift is a very famous singer from the USA. She was born on 1989/12/13 in West Reading, Pennsylvania.
+  ```
+В **Python 3.6** появилась **новая разновидность строк** - **f-строки**.
+
+Если поставить перед строкой **префикс `f`**, в заполнители можно будет включить **код**, например, **имя переменной или любые другие выражения**.
+
+**f-строки** обеспечивают чистый и интуитивно понятный способ форматирования строк.
+
+- Предыдущий код можно преобразовать:
+  ```python
+  first_name = 'Taylor'
+  last_name = 'Swift'
+  country = 'USA'
+  birth_date = '1989/12/13'
+  birth_place = 'West Reading, Pennsylvania'
+  text = f'{first_name} {last_name} is a very famous singer from the {country}. She was born on {birth_date}     in {birth_place}.'
+  
+  print(text)
+  ```
+На место **заполнителя `{first_name}`** встает значение переменной **`first_name`**, на место **заполнителя {last_name}** встает значение переменной **`last_name`** и так далее по такой же логике.
+
+Как уже было сказано, **помимо переменных** в заполнителях **f-строк можно использовать выражения**.
+
+- Приведённый ниже код:
+  ```python
+  print(f'5 + 2 = {5 + 2}')
+  print(f'5 - 2 = {5 - 2}')
+  print(f'5 * 2 = {5 * 2}')
+  print(f'5 / 2 = {5 / 2}')
+  ```
+  выводит:
+  ```python
+  5 + 2 = 7
+  5 - 2 = 3
+  5 * 2 = 10
+  5 / 2 = 2.5
+  ```
+  
+  
