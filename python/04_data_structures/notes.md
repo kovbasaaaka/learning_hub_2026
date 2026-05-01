@@ -1319,12 +1319,12 @@
   
   for i in range(n - 1):
       is_end = True
-      if is_end == False:
-          break
       for j in range(n - i - 1):
           if a[j] > a[j + 1]:
               a[j], a[j + 1] = a[j + 1], a[j]
               is_end = False
+      if is_end:
+          break
   
    print(a)
    ```
