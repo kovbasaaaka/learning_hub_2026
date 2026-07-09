@@ -3604,3 +3604,390 @@
   ```
 
 Cтоит обратить внимение на то, что пустое множество выводится как `set()`, а не как `{}`, т.к. с помощью `{}` выводится пустой словарь.
+
+### Операции над множествами
+
+Для каждой операции над множествами есть свой метод и оператор.
+
+#### Объединение множеств - метод `union()` 
+
+**Объединение множеств** - это множество, состоящее из элементов, принадлежащих хотя бы одному из объединяемых множеств. Для этой операции существует метод `union()`
+
+<img width="354" height="275" alt="image" src="https://github.com/user-attachments/assets/705e6de8-4885-487c-aa52-78ee436752ab" />
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4, 5}
+  my_set2 = {3, 4, 6, 7, 8}
+
+  my_union_set = my_set1.union(my_set2)
+  print(my_union_set)
+  ```
+  выводит:
+  ```python
+  {1, 2, 3, 4, 5, 6, 7, 8}
+  ```
+
+Стоит обратить внимание, что метод `union()` **возвращает НОВОЕ МНОЖЕСТВО** в которое входят все элементы множеств `my_set1` и `my_set2`. Для изменения текущего множества используется метод `update()`
+
+Также для объединения двух множеств можно использовать оператор `|`.
+
+- Результат выполнения приведённого ниже кода:
+  ```python
+  my_set1 = {1, 2, 3, 4, 5}
+  my_set2 = {3, 4, 6, 7, 8}
+
+  my_union_set = my_set1 | my_set2
+  print(my_union_set)
+  ```
+  такой же, как и у предыдущего.
+
+#### Пересечение множеств - метод `intersection()`
+
+**Пересечение множеств** - это множество, состоящее из элементов, принадлежащих одновременно каждому из пересекающихся множеств.
+
+Для этой операции существует метод `intersection()`.
+
+<img width="327" height="263" alt="image" src="https://github.com/user-attachments/assets/0571e361-a34b-4617-b0b3-d10f0a2f0fb2" />
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4}
+  my_set2 = {3, 4, 6}
+
+  my_intersection_set = my_set1.intersection(my_set2)
+  print(my_intersection_set)
+  ```
+  выводит:
+  ```python
+  {3, 4}
+  ```
+
+Стоит обратить внимание на то, что метод `intersection()` **возвращает НОВОЕ МНОЖЕСТВО** в которое входят общие элементы множеств `my_set2` и `my_set2`. Для изменения текущего множества используется метод `intersection_update()`.
+
+Для пересечения двух множеств также можно использовать оператор `&`.
+
+- Вот так:
+  ```python
+  my_set1 = {1, 2, 3, 4}
+  my_set2 = {3, 4, 6}
+
+  my_intersection_set = my_set1 & my_set2
+  print(my_intersection_set)
+  ```
+  выведет точно то же самое, что и прошлый код.
+
+#### Разность множеств - метод `difference()`
+
+**Разность множеств** - это множество, в которое входят все элементы первого множества, не входящие во второе множество.
+
+Для этой операции существует метод `difference()`
+
+<img width="339" height="273" alt="image" src="https://github.com/user-attachments/assets/308f25ea-d67f-49e4-bbbd-0445e02aa2ee" />
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4}
+  my_set2 = {3, 4, 6, 7}
+
+  my_difference_set = my_set1,difference(my_set2)
+  print(my_difference_set)
+  ```
+  выводит:
+  ```python
+  {1, 2, 5}
+  ```
+
+Для разности двух множеств можно также использовать оператор `-`.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4}
+  my_set2 = {3, 4, 6, 7}
+
+  my_difference_set = my_set1 - my_set2
+  print(my_difference_set)
+  ```
+  результат выполнения данного кода аналогичен предыдущему.
+
+Стоит обратить внимание, что для операции разности множеств **важен порядок, в котором указаны множества**.
+
+Если поменять местами `my_set1` и `my_set2`, нас ожидает **совсем другой результат**: элементы, входящие в множество `my_set2` и которых нет в множестве `my_set1`.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4}
+  my_set2 = {3, 4, 6, 7}
+
+  my_difference_set = my_set2 - my_set1
+
+  print(my_difference_set)
+  ```
+  выводит:
+  ```python
+  {6, 7}
+  ```
+
+#### Симметрическая разность - метод `symmetric_difference()`
+
+**Симметрическая разность** множеств - это множество, включающее все элементы исходных множеств, не принадлежащие одновременно обоим исходным множествам. Для данной операции существует метод `symmetric_difference()`.
+
+<img width="356" height="264" alt="image" src="https://github.com/user-attachments/assets/7f9617d8-3373-453c-b050-8a35e9003051" />
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {5, 2, 3, 4}
+  my_set2 = {3, 4, 6, 7}
+
+  my_symmetric_difference_set = my_set1.symmetric_difference(my_set2)
+  print(my_symmetric_difference_set)
+  ```
+  выводит:
+  ```python
+  {5, 2, 6, 7}
+  ```
+
+Для симметрической разности двух множеств можно также использовать оператор `^`.
+
+- Результат выполнения приведёного ниже кода аналогичен предыдущему:
+  ```python
+  my_set1 = {5, 2, 3, 4}
+  my_set2 = {3, 4, 6, 7}
+
+  my_symmetric_difference_set = my_set1 ^ my_set2
+  print(my_symmetric_difference_set)
+  ```
+
+Логично, что для операции симметрической разности порядок множеств неважен, на то она и симметрическая: `my_set1 ^ my_set2 == my_set2 ^ my_set1`.
+
+### Методы множеств, изменяющие текущие множества
+
+Методы `union()`, `intersection()`, `difference()`, `symmetric_difference()` не изменяют исходные множества, а возвращают новые.
+
+Часто на практике нужно изменять исходные множества.
+
+Для таких целей используются **парные методы**: `update()`, `intersection_update()`, `difference_update()`, `symmetric_difference_update()`.
+
+#### Метод `update()` 
+
+Метод `update()` изменяет исходное множество **по объединению**.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {5, 2, 3, 4}
+  my_set2 = {3, 4, 6, 7}
+
+  my_set1.update(my_set2) # изменяем множество my_set1
+  print(my_set1)
+  ```
+  выводит:
+  ```python
+  {5, 2, 3, 4, 6, 7}
+  ```
+  аналогичный результат получится, если использовать оператор `|=`:
+  ```python
+  my_set1 = {5, 2, 3, 4}
+  my_set2 = {3, 4, 6, 7}
+
+  my_set1 |= my_set2
+  print(my_set1)
+  ```
+
+#### Метод `intersection_update()`
+
+Метод `intersection_update()` изменяет исходное множество **по пересечению**.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {3, 4, 5, 2}
+  my_set2 = {3, 4, 6, 7}
+
+  my_set1.intersection_update(my_set2)
+  ```
+  выводит:
+  ```python
+  {3, 4}
+  ```
+  аналогичный результат получится, если использовать оператор `&=`:
+  ```python
+  my_set1 = {3, 4, 5, 2}
+  my_set2 = [3, 4, 6, 7}
+
+  my_set1 &= my_set2
+
+  print(my_set1)
+  ```
+
+#### Метод `difference_update()` 
+
+Метод `difference_update()` изменяет исходное множество **по разности**.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {3, 4, 5, 2}
+  my_set2 = {3, 4, 6, 7}
+
+  my_set1.difference_update(my_set2)
+
+  print(my_set1)
+  ```
+  выводит:
+  ```python
+  {5, 2}
+  ```
+  аналогичный результат получается, если использовать оператор `-=`:
+  ```python
+  my_set1 = {3, 4, 5, 2}
+  my_set2 = {3, 4, 6, 7}
+
+  my_set1 -= my_set2
+  print(my_set1)
+  ```
+
+#### Метод `symmetric_difference_update()`
+
+Метод `symmetric_difference_update()` изменяет исходное множество **по симметрической разности**.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {3, 4, 5, 2}
+  my_set2 = {3, 4, 6, 7}
+
+  my_set1.symmetric_difference_update(my_set2)
+
+  print(my_set1)
+  ```
+  выводит:
+  ```python
+  {5, 2, 6, 7}
+  ```
+  аналогичный результат получается, если использовать оператор `^=`:
+  ```python
+  my_set1 = {3, 4, 5, 2}
+  my_set2 = {3, 4, 6, 7}
+
+  my_set1 ^= my_set2
+  print(my_set1)
+  ```
+
+### Приоритет операторов 
+
+Сверху-вниз по убыванию:
+- `-` разность
+- `&` - пересечение
+- `^` - симметрическая разность
+- `|` - объединение
+
+
+### ПРИМЕЧАНИЕ
+
+#### Примечание 1
+
+Как уже было сказано, все основные операции над множествами выполняются двумя способами: либо при помощи метода, либо при помощи соответствующего методу оператора.
+
+Различие заключается в том, что метод в отличие от оператора может принимать в качестве аргумента не только множество(тип данных `set()`), но и **любой другой итерируемый объект** будь-то список, строка, кортеж и так далее.
+
+- Приведённый ниже код:
+  ```python
+  my_list = [1, 2, 3, 4, 5]
+  my_tuple = (1, 2, 3, 6, 7]
+  my_str = 'abcd'
+  my_set = {4, 2, 9, 8}
+
+  print(my_set.union(my_str))
+  print(my_set.intersection(my_list))
+  print(my_set.difference(my_tuple))
+  ```
+  выводит:
+  ```python
+  {4, 2, 9, 8, 'a', 'b', 'c', 'd'}
+  {4, 2}
+  {4, 9, 8}
+  ```
+
+- Приведённый ниже код:
+  ```python
+  my_list = [1, 2, 3, 4, 5]
+  my_tuple = (1, 2, 3, 6, 7]
+  my_str = 'abcd'
+  my_set = {4, 2, 9, 8}
+
+  print(my_set | my_str)
+  print(my_set & my_list)
+  print(my_set - my_tuple)
+  ```
+  приведёт к возникновению ошибок:
+  ```python
+  TypeError: unsupported operand type(s) for |: 'set' and 'str'
+  TypeError: unsupported operand type(s) for &: 'set' and 'list'
+  TypeError: unsupported operand type(s) for -: 'set' and 'tuple'
+  ```
+  
+#### Примечание 2
+
+Некоторые методы (`union()`, `intersection()`, `difference()`) и операторы (`|`, `&`, `-`, `^`) позволяют совершать операции над **несколькими множествами сразу**.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4, 5, 6}
+  my_set2 = {2, 3, 4, 5}
+  my_set3 = {5, 6, 7, 8}
+
+  union1 = my_set1.union(my_set2, my_set3)
+  union2 = my_set1 | my_set2 | my_set3
+
+  difference1 = my_set1.difference(my_set2, my_set3)
+  difference2 = my_set1 - my_set2 - my_set3
+
+  print(union1 == union2)
+  print(difference1 == difference2)
+  ```
+  выводит:
+  ```python
+  True
+  True
+  ```
+
+Стоит заметить, что здесь присутствует и оператор симметрической разности `^`, но нет метода симметрической разности `symmetric_difference()`.
+
+Всё потому, что метод симметрической разности не позволяет использовать сразу несколько множеств, а оператор позволяет.
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4, 5, 6}
+  my_set2 = {2, 3, 4, 7}
+  my_set3 = {6, 20, 30}
+
+  symdifference = my_set1 ^ my_set2 ^ my_set3
+
+  print(symdifference)
+  ```
+  выводит:
+  ```python
+  {1, 5, 7, 20, 30}
+  ```
+
+- Приведённый ниже код:
+  ```python
+  my_set1 = {1, 2, 3, 4, 5, 6}
+  my_set2 = {2, 3, 4, 7}
+  my_set3 = {6, 20, 30}
+
+  symdifference = my_set1.symmetric_difference(my_set2, my_set3)
+
+  print(symdifference)
+  ```
+  приводит к ошибке:
+  ```python
+  TypeError: symmetric_difference() takes exactly one argument (2 given)
+  ```
+
+#### Примечание 3
+
+<img width="650" height="859" alt="image" src="https://github.com/user-attachments/assets/2c06a7b1-8e05-4547-a200-bd38cdc2f35f" />
+
+<img width="576" height="1648" alt="image" src="https://github.com/user-attachments/assets/b992deb1-b884-448f-8793-e8ad1cb95ff0" />
+  
+  
+
+
