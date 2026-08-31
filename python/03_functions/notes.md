@@ -2053,8 +2053,153 @@
   ```
   Встроенная функция `round(x, n=0)` принимает 2 числовых аргумента `x` и `n` и округляет переданное число `x` до `n` цифр после десятичной запятой. Значением по умолчанию для `n` является 0.
 
+### Встроенная функция `filter()`
+
+Встроенная функция `filter()` имеет сигнатуру `filter(func, iterable)`. В отличие от моей реализации, она может принимать любой итерируемый объект(будь-то список, строка, кортеж и т.д.).
+
+В качестве параметра `func` указывается ссылка на функцию, которой будет передаваться текущий элемент последовательности. Внутри функции `func` необходимо вернуть значение `True` или `False`. Для примера, удалим все отрицательные значения из списка.
+
+- Приведённый ниже код:
+  ```python
+  def func(elem):
+      return elem >= 0
+
+  numbers = [1, 2, -1, -6, 6, 7, 9, -101]
+
+  positive_numbers = list(filter(func, numbers))
+
+  print(positive_numbers)
+  ```
+  выведет:
+  ```python
+  [1, 2, 6, 7, 9]
+  ```
+
+Стоит обратить внимание, что функция `filter()` как и функция `map()` возвращает не список, а специальный объект, который называется итератором.
+
+
+Встроенной функции `filter()` можно в качестве первого параметра `func` передать значение `None`.  В таком случае каждый элемент последовательности будет проверен на соответствие значению `True`. Если элемент в логическом контексте возвращает значение `False`, то он не будет добавлен в возвращаемый результат.
+
+- Приведённый ниже код:
+  ```python
+  true_values = filter(None, [1, 0, 10, '', None, [], [1, 2, 3], ()])
+
+  for value in true_values:
+      print(value)
+  ```
+  выводит:
+  ```python
+  1
+  10
+  [1, 2, 3]
+  ```
+
+### Встроенная функция `reduce()`
+
+Для использования функции `reduce()` необходимо подключить специальный модуль `functools`. Функция `reduce()` имеет сигнатуру `reduce(func, iterable, initializer=None)`. 
+Если начальное значение не установлено, то в его качестве используется первое значение из последовательности `iterable`.
+
+- Приведённый ниже код:
+  ```python
+  from functools import reduce
+
+  def func(a, b):
+      return a + b
+
+  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+  total = reduce(func, numbers, 0)
+  print(total)
+  ```
+  выводит:
+  ```python
+  55
+  ```
+  Обратите внимание, что мы могли функцию вызвать вот так:
+  ```python
+  total = reduce(func, numbers)
+  ```
+
+Функция `reduce()` во второй версии языка **Python** была встроенной, но в **Python3** её решили перенести в модуль `functools`. Функция `reduce()` как и функции `map()` и `filter()` может принимать любой итерируемый объект.
+
+
   
+## Модуль `operator` 
+
+Чтобы не писать каждый раз функции, определяющие такие стандартные операции как сумма или произведение, можно использовать уже реализованные функции из модуля `operator`.
+
+- Неполный список функций из модуля `operator` выглядит так:
+  <img width="489" height="715" alt="image" src="https://github.com/user-attachments/assets/98a2a87a-6afb-4c6f-bf4c-0959ba26e810" />
+
+
+- Примеры использования функций из данного модуля:
+  ```python
+  from operator import *     #  импортируем все функции
+
+  print(add(10, 20))         #  сумма
+  print(floordiv(20, 3))     #  целочисленное деление
+  print(neg(9))              #  смена знака
+  print(lt(2, 3))            #  проверка на неравенство <
+  print(lt(10, 8))           #  проверка на неравенство <
+  print(eq(5, 5))            #  проверка на равенство ==
+  print(eq(5, 9))            #  проверка на равенство ==
+  ```
+  выводит:
+  ```python
+  30
+  6
+  -9
+  True
+  False
+  True
+  False
+  ```
   
+- Приведённый ниже код:
+  ```python
+  from functools import reduce
+  import operator
+  
+  words = ['Testing ', 'shows ', 'the ', 'presence', ', ', 'not ', 'the ', 'absence ', 'of ', 'bugs'] 
+  numbers = [1, 2, -6, -4, 3, 9, 0, -6, -1]
+  
+  opposite_numbers = list(map(operator.neg, numbers))    #  смена знаков элементов списка
+  concat_words = reduce(operator.add, words)             #  конкатенация элементов списка
+  
+  print(opposite_numbers)
+  print(concat_words)
+  ```
+  выводит:
+  ```python
+  [-1, -2, 6, 4, -3, -9, 0, 6, 1]
+  Testing shows the presence, not the absence of bugs
+  ```
+
+Модуль `operator` реализован на языке `C`, поэтому функции этого модуля работают в разы быстрее, чем самописные функции на **Python**.
+
+### Примечание:
+
+Если нам нужны строковые методы в виде функций, мы можем получить их через название типа `str`
+
+- Приведённый ниже код:
+  ```python
+  pets = ['alfred', 'tabitha', 'william', 'arla']
+  chars = ['x', 'y', '2', '3', 'a']
+   
+  uppered_pets = list(map(str.upper, pets))
+  capitalized_pets = list(map(str.capitalize, pets))
+  only_letters = list(filter(str.isalpha, chars))
+  
+  print(uppered_pets)
+  print(capitalized_pets)
+  print(only_letters)
+  ```
+  выводит:
+  ```python
+  ['ALFRED', 'TABITHA', 'WILLIAM', 'ARLA']
+  ['Alfred', 'Tabitha', 'William', 'Arla']
+  ['x', 'y', 'a']
+  ```
   
   
 
